@@ -30,8 +30,8 @@ fun Toast.showCustomToast(message: String, activity: Activity) {
 
     // use the application extension function
     this.apply {
-        setGravity(Gravity.BOTTOM, 0, 40)
-        duration = Toast.LENGTH_LONG
+        setGravity(Gravity.TOP, 0, 40)
+        duration = Toast.LENGTH_SHORT
         view = layout
         show()
     }
@@ -85,6 +85,23 @@ class MainActivity : AppCompatActivity() {
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             changeImageSourceBasedOnRadio(checkedId, imageView)
         }
+
+        val todoButton = findViewById<Button>(R.id.todoActivityButton)
+
+        todoButton.setOnClickListener {
+            Intent(this, TodoActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+
+        val fragmentButton = findViewById<Button>(R.id.fragmentActivityButton)
+
+        fragmentButton.setOnClickListener {
+            Intent(this, FragmentActivity::class.java).also {
+                startActivity(it)
+            }
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
