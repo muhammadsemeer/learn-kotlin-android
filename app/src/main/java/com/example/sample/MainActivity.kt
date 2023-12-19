@@ -10,12 +10,12 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.CheckBox
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sample.databinding.ActivityMainBinding
 
 
 fun Toast.showCustomToast(message: String, activity: Activity) {
@@ -41,20 +41,27 @@ fun Toast.showCustomToast(message: String, activity: Activity) {
 class MainActivity : AppCompatActivity() {
 
     private var currentToast: Toast? = null;
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        val applyButton = findViewById<Button>(R.id.applyButton)
-        val nameEditText = findViewById<EditText>(R.id.name)
-        val ageEditText = findViewById<EditText>(R.id.age)
-        val countryEditText = findViewById<EditText>(R.id.country)
+        val applyButton = binding.applyButton
+        val nameEditText = binding.name
+        val ageEditText = binding.age
+        val countryEditText = binding.country
 
-        applyButton.setOnClickListener {
-            val name = nameEditText.text.toString()
-            val age = ageEditText.text.toString().toIntOrNull() ?: 0
-            val country = countryEditText.text.toString()
+
+
+
+
+        applyButton?.setOnClickListener {
+            val name = nameEditText?.text.toString()
+            val age = ageEditText?.text.toString().toIntOrNull() ?: 0
+            val country = countryEditText?.text.toString()
 
             currentToast?.cancel();
             if (name.isBlank() || age <= 0 || country.isBlank()) {
@@ -63,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Intent(this, SecondActivity::class.java).also {
                     it.putExtra("name", name)
-                    it.putExtra("age", age.toInt())
+                    it.putExtra("age", age)
                     it.putExtra("country", country)
                     startActivity(it)
                 }
